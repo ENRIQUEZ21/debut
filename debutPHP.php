@@ -175,18 +175,18 @@ echo "1" == '1';
 
 
 
-
-//10:10 de la vidéo #17   ----- Ecrire sur le classeur sur les forms en PHP :
-// ----- 1 ---- Rappeler les choses sur include : prend en cpte le CSS de la nvlle page
-// ----- 2 ---- Parler du GET :
-// ----- 3 ---- Continuer la vidéo
+if(isset($_POST['validation'])) {
+    echo 'On a gagné';
+} else {
+    echo 'On a perdu';
+}
 
 ?>
 <html>
 <link rel="stylesheet" href="styleDebutPHP.css" type="text/css">
 <h4 class="bonjour">Bonjour Monsieur</h4>
 <section>
-    <form method="get" action="">
+    <form method="post" action="">
         <div><label>Votre mail : </label><input type="email" name="mail"></div>
         <div><label>Votre prénom : </label><input type="text" name="prenom"></div>
         <div><label>Votre nom : </label><input type="text" name="nom"></div>
