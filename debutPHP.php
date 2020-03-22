@@ -177,6 +177,7 @@ echo "1" == '1';
 
 if(isset($_POST['validation'])) {
     echo 'On a gagné';
+    //echo '<br />'.htmlspecialchars($_POST['prenom']);
 } else {
     echo 'On a perdu';
 }
