@@ -173,7 +173,7 @@ echo "1" == '1';
     }
     presentation($product);
 
-
+$errors = array('mail'=>'', 'prenom'=>'', 'nom'=>'');
 
 if(isset($_POST['validation'])) {
     echo 'On a gagné';
@@ -182,25 +182,42 @@ if(isset($_POST['validation'])) {
     echo 'On a perdu';
 }
 
+$email = $_POST['mail'];
 if(!empty($_POST['mail'])) {
-    $email = $_POST['mail'];
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo 'Votre e-mail n\'est pas valide';
+        $errors['mail'] = 'Votre e-mail n\'est pas valide';
     } else {
-        echo 'OK, votre adresse mail est valide !!!';
+        echo '<br />OK, votre adresse mail est valide !!!';
     }
 } else {
-    echo 'Veuillez taper un mail !!!!';
+    $errors['mail'] = 'Veuillez taper un mail !!!!';
 }
 
+
+$prenom = $_POST['prenom'];
+if(!empty($_POST['prenom'])){
+    if(!preg_match('/^[a-zA-Z\s]+$/', $prenom)) {
+        $errors['prenom'] = 'Vous devez prendre un prénom avec seulement des lettres et des espaces';
+    }
+    else {
+        echo 'Ok, bon prénom !!!!!!';
+    }
+} else {
+    $errors['prenom'] = 'Vous devez saisir un prénom';
+}
+
+
+$nom = $_POST['nom'];
 if(!empty($_POST['nom'])) {
-    $nom = $_POST['nom'];
     if(!preg_match('/^[a-zA-Z\s]+$/', $nom)) {
-        echo 'Vous devez prendre des noms avec seulement des lettres et des espaces';
+        $errors['nom'] = 'Vous devez prendre des noms avec seulement des lettres et des espaces';
     } else {
-        echo "OK, c'est bon !!!!!!!";
+        echo "OK, c'est un bon nom !!!!!!!";
     }
 }
+else {$errors['nom'] = 'Vous devez saisir un nom';
+}
+
 ?>
 <html>
 <link rel="stylesheet" href="styleDebutPHP.css" type="text/css">
@@ -208,9 +225,12 @@ if(!empty($_POST['nom'])) {
 <h4 class="bonjour">Bonjour Monsieur</h4>
 <section>
     <form method="post" action="">
-        <div><label>Votre mail : </label><input type="email" name="mail"></div>
-        <div><label>Votre prénom : </label><input type="text" name="prenom"></div>
-        <div><label>Votre nom : </label><input type="text" name="nom"></div>
+        <label>Votre mail : </label><input type="email" name="mail" value="<?php echo htmlspecialchars($email); ?>">
+        <div class="error"><?php echo $errors['mail']; ?></div>
+        <label>Votre prénom : </label><input type="text" name="prenom" value="<?php echo htmlspecialchars($prenom); ?>">
+        <div class="error"><?php echo $errors['prenom']; ?></div>
+        <label>Votre nom : </label><input type="text" name="nom" value="<?php echo htmlspecialchars($nom); ?>">
+        <div class="error"><?php echo $errors['nom']; ?></div>
         <input type="submit" name="validation">
     </form>
 </section>
