@@ -1,0 +1,28 @@
+
+h1 {
+    color: aquamarine;
+}
+h1:hover {
+    color: blueviolet;
+}
+a {
+    background-color: lightgreen;
+    text-decoration: none;
+    color: blue;
+    font-size: 50px;
+    border: black 5px;
+}
+a:hover {
+    background-color: blueviolet;
+    color: white;
+}
+section {
+    background-color: orange;
+}
+form {
+    width: 270px;
+    padding: 30px;
+}
+div {
+    padding: 10px
+}
