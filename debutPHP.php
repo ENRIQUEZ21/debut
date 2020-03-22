@@ -179,12 +179,32 @@ if(isset($_POST['validation'])) {
     echo 'On a gagné';
     //echo '<br />'.htmlspecialchars($_POST['prenom']);
 } else {
-    echo 'On a perdu     ';
+    echo 'On a perdu';
 }
 
+if(!empty($_POST['mail'])) {
+    $email = $_POST['mail'];
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo 'Votre e-mail n\'est pas valide';
+    } else {
+        echo 'OK, votre adresse mail est valide !!!';
+    }
+} else {
+    echo 'Veuillez taper un mail !!!!';
+}
+
+if(!empty($_POST['nom'])) {
+    $nom = $_POST['nom'];
+    if(!preg_match('/^[a-zA-Z\s]+$/', $nom)) {
+        echo 'Vous devez prendre des noms avec seulement des lettres et des espaces';
+    } else {
+        echo "OK, c'est bon !!!!!!!";
+    }
+}
 ?>
 <html>
 <link rel="stylesheet" href="styleDebutPHP.css" type="text/css">
+<title>Début PHP</title>
 <h4 class="bonjour">Bonjour Monsieur</h4>
 <section>
     <form method="post" action="">
