@@ -181,41 +181,52 @@ if(isset($_POST['validation'])) {
 } else {
     echo 'On a perdu';
 }
-
-$email = $_POST['mail'];
-if(!empty($_POST['mail'])) {
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['mail'] = 'Votre e-mail n\'est pas valide';
+if(isset($_POST['mail'])) {
+    $email = $_POST['mail'];
+    if(!empty($_POST['mail'])) {
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['mail'] = 'Votre e-mail n\'est pas valide';
+        } else {
+            echo '<br />OK, votre adresse mail est valide !!!';
+        }
     } else {
-        echo '<br />OK, votre adresse mail est valide !!!';
+        $errors['mail'] = 'Veuillez taper un mail !!!!';
     }
-} else {
-    $errors['mail'] = 'Veuillez taper un mail !!!!';
 }
 
 
-$prenom = $_POST['prenom'];
-if(!empty($_POST['prenom'])){
-    if(!preg_match('/^[a-zA-Z\s]+$/', $prenom)) {
-        $errors['prenom'] = 'Vous devez prendre un prénom avec seulement des lettres et des espaces';
-    }
-    else {
-        echo 'Ok, bon prénom !!!!!!';
-    }
-} else {
-    $errors['prenom'] = 'Vous devez saisir un prénom';
-}
-
-
-$nom = $_POST['nom'];
-if(!empty($_POST['nom'])) {
-    if(!preg_match('/^[a-zA-Z\s]+$/', $nom)) {
-        $errors['nom'] = 'Vous devez prendre des noms avec seulement des lettres et des espaces';
+if(isset($_POST['prenom'])) {
+    $prenom = $_POST['prenom'];
+    if(!empty($_POST['prenom'])){
+        if(!preg_match('/^[a-zA-Z\s]+$/', $prenom)) {
+            $errors['prenom'] = 'Vous devez prendre un prénom avec seulement des lettres et des espaces';
+        }
+        else {
+            echo 'Ok, bon prénom !!!!!!';
+        }
     } else {
-        echo "OK, c'est un bon nom !!!!!!!";
+        $errors['prenom'] = 'Vous devez saisir un prénom';
     }
 }
-else {$errors['nom'] = 'Vous devez saisir un nom';
+
+
+if(isset($_POST['nom'])) {
+    $nom = $_POST['nom'];
+    if(!empty($_POST['nom'])) {
+        if(!preg_match('/^[a-zA-Z\s]+$/', $nom)) {
+            $errors['nom'] = 'Vous devez prendre des noms avec seulement des lettres et des espaces';
+        } else {
+            echo "OK, c'est un bon nom !!!!!!!";
+        }
+    }
+    else {$errors['nom'] = 'Vous devez saisir un nom';
+    }
+}
+// array_filter() sert à regarder pour chaque élément d'un tableau et filtrer
+if(array_filter($errors)) {
+    $gestionTableau = 'Il y a un probleme dans votre formulaire. Veuillez reessayer.';
+} else {
+    $gestionTableau = 'Le formulaire a bien ete rempli. Merci pour votre collaboration et a bientot !!!!';
 }
 
 ?>
@@ -234,6 +245,7 @@ else {$errors['nom'] = 'Vous devez saisir un nom';
         <input type="submit" name="validation">
     </form>
 </section>
+<div id="gestionTableau"><?php echo '<br />'.htmlspecialchars(strtoupper($gestionTableau));?></div>
 </html>
 
 <?php

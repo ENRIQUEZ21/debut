@@ -29,3 +29,8 @@ div {
 .error {
     color: red;
 }
+#gestionTableau {
+    background-color: black;
+    font-size: 30px;
+    color: white;
+}
