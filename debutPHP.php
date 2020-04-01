@@ -173,7 +173,8 @@ echo "1" == '1';
     }
     presentation($product);
 
-$errors = array('mail'=>'', 'prenom'=>'', 'nom'=>'');
+$errors = array('mail'=>'', 'prenom'=>'', 'nom'=>'', 'age'=>'');
+
 
 if(isset($_POST['validation'])) {
     echo 'On a gagné';
@@ -181,6 +182,19 @@ if(isset($_POST['validation'])) {
 } else {
     echo 'On a perdu';
 }
+
+
+
+if(isset($_POST['age'])) {
+    if(!empty($_POST['age'])) {
+        $age = $_POST['age'];
+        echo 'OK, votre age est valide';
+    } else {
+        $errors['age'] = "Votre age ,n'est pas renseigné !!!";
+    }
+}
+
+
 if(isset($_POST['mail'])) {
     $email = $_POST['mail'];
     if(!empty($_POST['mail'])) {
@@ -229,6 +243,54 @@ if(array_filter($errors)) {
     $gestionTableau = 'Le formulaire a bien ete rempli. Merci pour votre collaboration et a bientot !!!!';
 }
 
+// Connexion à la BDD
+$connexion = mysqli_connect('localhost', 'root', '', 'base1');
+
+// Vérification si la connexion s'est bien faite
+if(!$connexion) {
+    echo 'Une erreur de connexion avec la BDD s\'est produite';
+} else {
+    echo 'C\'est bon, la connexion s\'est bien faite';
+}
+
+// On va obtenir des données de notre BDD
+
+// On crée la requête
+$sql_1 = 'SELECT * FROM table_skills ORDER BY skill';
+
+// On va obtenir la requête que l'on a précédemment écrite
+$resultat = mysqli_query($connexion, $sql_1);
+
+// Problème, le résultat n'est pas sous la forme que nous voulons, on fait donc mysqli_fetch_all(), pour aller
+// chercher le $resultat sous form de tableaux, et qu'il soit ainsi affichable
+$obtention = mysqli_fetch_all($resultat, MYSQLI_ASSOC);
+
+//print_r($obtention); // On affiche le résultat
+
+
+// Cependant, afin de mieux afficher le résultat, on peut le faire avec la fct foreach(),
+// qui va permettre de bien afficher les différentes parties du assiocative array Ex ci-dessous
+foreach ($resultat as $result) {
+    //echo '<br />'.'On a comme compétence : '.htmlspecialchars($result['skill']);
+    foreach(explode(',', $result['skill']) as $obt) { ?>
+        <li><?php echo htmlspecialchars($obt);?></li>
+    <?php }
+}
+
+// On utilise la fonction explode
+
+
+// On libère la place prise par le résultat : mysqli_free_result()
+mysqli_free_result($resultat);
+
+// On ferme la connexion avec la BDD
+mysqli_close($connexion);
+if($connexion) {
+    echo 'Vous n\'êtes pas connecté à la BDD'; // Ainsi on vérifie qu'on s'est bien déconnecté de la BDD
+}
+
+
+
 ?>
 <html>
 <link rel="stylesheet" href="styleDebutPHP.css" type="text/css">
@@ -236,12 +298,14 @@ if(array_filter($errors)) {
 <h4 class="bonjour">Bonjour Monsieur</h4>
 <section>
     <form method="post" action="">
-        <label>Votre mail : </label><input type="email" name="mail" value="<?php echo htmlspecialchars($email); ?>">
-        <div class="error"><?php echo $errors['mail']; ?></div>
         <label>Votre prénom : </label><input type="text" name="prenom" value="<?php echo htmlspecialchars($prenom); ?>">
         <div class="error"><?php echo $errors['prenom']; ?></div>
         <label>Votre nom : </label><input type="text" name="nom" value="<?php echo htmlspecialchars($nom); ?>">
         <div class="error"><?php echo $errors['nom']; ?></div>
+        <label>Votre mail : </label><input type="email" name="mail" value="<?php echo htmlspecialchars($email); ?>">
+        <div class="error"><?php echo $errors['mail']; ?></div>
+        <label>Votre age : </label><input type="int" name="age" value="<?php echo htmlspecialchars($age); ?>">
+        <div class="error"><?php echo $errors['age']; ?></div>
         <input type="submit" name="validation">
     </form>
 </section>
@@ -249,5 +313,39 @@ if(array_filter($errors)) {
 </html>
 
 <?php
+$conn = mysqli_connect('localhost', 'root', '', 'base1');
+
+// Ici, on va sauver les données prises dans la BDD
+$mail = mysqli_real_escape_string($conn, $_POST['mail']);
+$pren = mysqli_real_escape_string($conn, $_POST['prenom']);
+$nom_ = mysqli_real_escape_string($conn, $_POST['nom']);
+$age_insertion = mysqli_escape_string($conn, $_POST['age']);
+if(isset($_POST['validation']) AND !$errors['prenom'] OR !$errors['nom'] OR !$errors['mail'] OR !$errors['age']) {
+    $sql_insertion = "INSERT INTO table_user(email, prenom, nom, age) VALUES ('$mail', '$pren', '$nom_', '$age_insertion')";
+    if(mysqli_query($conn, $sql_insertion)) {
+        echo '<br />'.'Ca va ouf !!!!';
+    } else {
+        echo '<br />'.'Aïe, problème de connexion !!!!';
+    }
+}
+
+class Personne {
+    public function __construct() {
+        echo '<br />'.'<br />'.'Je me présente, je suis un être humain.';
+    }
+    public function Avancer() {
+        echo '<br />'.'J\'avance';
+    }
+}
+
+
+$gabriel = new Personne();
+for($i = 0; $i < 6; $i ++) {
+    $gabriel->Avancer();
+}
+
+
+
 include 'footer.php';
 ?>
+
