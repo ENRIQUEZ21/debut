@@ -294,6 +294,13 @@ if($connexion) {
 ?>
 <html>
 <link rel="stylesheet" href="styleDebutPHP.css" type="text/css">
+<p class="article"><a href="#">Bouton query</a></p>
+<p id="js">salut les gens ID présentation</p>
+<p class="js2"><br />On fait des classes </p>
+<p class="js2"><br />On fait des classes </p>
+<p class="js2"><br />On fait des classes </p>
+<p class="js2"><br />On fait des classes </p>
+<script src="debutJS.js"></script>
 <title>Début PHP</title>
 <h4 class="bonjour">Bonjour Monsieur</h4>
 <section>
