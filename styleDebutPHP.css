@@ -1,6 +1,8 @@
-
+* {
+    background-color: aqua;
+}
 h1 {
-    color: aquamarine;
+    color: crimson;
 }
 h1:hover {
     color: blueviolet;
@@ -16,7 +18,8 @@ a:hover {
     background-color: blueviolet;
     color: white;
 }
-section {
+
+form, section, a {
     background-color: orange;
 }
 form {
@@ -33,4 +36,9 @@ div {
     background-color: black;
     font-size: 30px;
     color: white;
+}
+button {
+    color: orange;
+    font-size: 100px;
+    background-color: blue;
 }

@@ -289,23 +289,14 @@ if($connexion) {
     echo 'Vous n\'êtes pas connecté à la BDD'; // Ainsi on vérifie qu'on s'est bien déconnecté de la BDD
 }
 
-
+include ('insertion.html')
 
 ?>
 <html>
-<link rel="stylesheet" href="styleDebutPHP.css" type="text/css">
-<p class="article"><a href="#">Bouton query</a></p>
-<p id="js">salut les gens ID présentation</p>
-<p class="js2"><br />On fait des classes </p>
-<p class="js2"><br />On fait des classes </p>
-<p class="js2"><br />On fait des classes </p>
-<p class="js2"><br />On fait des classes </p>
-<script src="debutJS.js"></script>
-<title>Début PHP</title>
-<h4 class="bonjour">Bonjour Monsieur</h4>
+
 <section>
     <form method="post" action="">
-        <label>Votre prénom : </label><input type="text" name="prenom" value="<?php echo htmlspecialchars($prenom); ?>">
+        <label id="essai">Votre prénom : </label><input id="mot_de_passe" type="text" name="prenom" value="<?php echo htmlspecialchars($prenom); ?>">
         <div class="error"><?php echo $errors['prenom']; ?></div>
         <label>Votre nom : </label><input type="text" name="nom" value="<?php echo htmlspecialchars($nom); ?>">
         <div class="error"><?php echo $errors['nom']; ?></div>
@@ -317,6 +308,7 @@ if($connexion) {
     </form>
 </section>
 <div id="gestionTableau"><?php echo '<br />'.htmlspecialchars(strtoupper($gestionTableau));?></div>
+<script src="debutJS.js"></script>
 </html>
 
 <?php
@@ -353,6 +345,6 @@ for($i = 0; $i < 6; $i ++) {
 
 
 
-include 'footer.php';
+
 ?>
 

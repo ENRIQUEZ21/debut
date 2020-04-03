@@ -1,14 +1,10 @@
+// On peut aussi changer les attribute des éléments comme les input
+mdp = document.querySelector('input')
+mdp1 = document.querySelector("label").innerHTML
+alert(mdp1)
 
+mdp.setAttribute("type", "password")
 
-var essai = document.getElementById("js");
-console.log(essai)
-alert(essai)
-essai.style.color = 'blue'
+console.log("Bonjour")
 
-
-var essai2 = document.getElementsByClassName("js2")
-
-tag = document.getElementsByTagName("p").innerHTML = "Salut"
-alert(tag)
-console.log(tag)
-
+alert("SALUT TOUT LE MONDE !!!!!!!")
