@@ -4,7 +4,7 @@ define('NAME', 'Gabriel');
 
 include 'header.php';
 
-
+    echo 'SALUT';
     echo 'Bonjour les amis';
     /*$name = 'Gabriel';
     $name = 2;
