@@ -248,7 +248,7 @@ $connexion = mysqli_connect('localhost', 'root', '', 'base1');
 
 // Vérification si la connexion s'est bien faite
 if(!$connexion) {
-    echo 'Une erreur de connexion avec la BDD s\'est produite';
+    echo 'Une erreur de connexion avec la BDD s\'est produite  ';
 } else {
     echo 'C\'est bon, la connexion s\'est bien faite';
 }
